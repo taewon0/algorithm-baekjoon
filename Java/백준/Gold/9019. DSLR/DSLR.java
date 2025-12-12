@@ -7,73 +7,81 @@ import java.util.StringTokenizer;
 public class Main {
 	
 	public static void main(String[] args) throws IOException {
-		
-		class Path {
-			int val;
-			String path;
-			
-			public Path(int val, String path) {
-				this.val = val;
-				this.path = path;
-			}
-		}
-		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int t = Integer.parseInt(br.readLine());
 		StringTokenizer st;
-		ArrayDeque<Path> q = new ArrayDeque<>();
+		ArrayDeque<Integer> q = new ArrayDeque<>();
 		StringBuilder sb = new StringBuilder();
 		while (t-->0) {
 			st = new StringTokenizer(br.readLine());
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
 			boolean[] visited = new boolean[10000];
+			int[] from = new int[10000];
+			char[] how = new char[10000];
 			visited[a] = true;
-			q.addFirst(new Path(a, ""));
+			q.addFirst(a);
 			while (!q.isEmpty()) {
-				Path cur = q.removeLast();
+				int cur = q.removeLast();
 				//D
-				int d = cur.val * 2 % 10000;
+				int d = cur * 2 % 10000;
 				if (d == b) {
-					sb.append(cur.path).append("D").append("\n");
+					from[d] = cur;
+					how[d] = 'D';
 					break;
 				}
 				if (!visited[d]) {
 					visited[d] = true;
-					q.addFirst(new Path(d, new StringBuilder().append(cur.path).append("D").toString()));
+					from[d] = cur;
+					how[d] = 'D';
+					q.addFirst(d);
 				}
 				//S
-				int s = cur.val == 0 ? 9999 : cur.val - 1;
+				int s = cur == 0 ? 9999 : cur - 1;
 				if (s == b) {
-					sb.append(cur.path).append("S").append("\n");
+					from[s] = cur;
+					how[s] = 'S';
 					break;
 				}
 				if (!visited[s]) {
 					visited[s] = true;
-					q.addFirst(new Path(s, new StringBuilder().append(cur.path).append("S").toString()));
+					from[s] = cur;
+					how[s] = 'S';
+					q.addFirst(s);
 				}
 				//L
-				int l = cur.val / 1000 + cur.val % 1000 * 10;
+				int l = cur / 1000 + cur % 1000 * 10;
 				if (l == b) {
-					sb.append(cur.path).append("L").append("\n");
+					from[l] = cur;
+					how[l] = 'L';
 					break;
 				}
 				if (!visited[l]) {
 					visited[l] = true;
-					q.addFirst(new Path(l, new StringBuilder().append(cur.path).append("L").toString()));
+					from[l] = cur;
+					how[l] = 'L';
+					q.addFirst(l);
 				}
 				//R
-				int r = cur.val % 10 * 1000 + cur.val / 10;
+				int r = cur % 10 * 1000 + cur / 10;
 				if (r == b) {
-					sb.append(cur.path).append("R").append("\n");
+					from[r] = cur;
+					how[r] = 'R';
 					break;
 				}
 				if (!visited[r]) {
 					visited[r] = true;
-					q.addFirst(new Path(r, new StringBuilder().append(cur.path).append("R").toString()));
+					from[r] = cur;
+					how[r] = 'R';
+					q.addFirst(r);
 				}
-				
 			}
+			StringBuilder path = new StringBuilder();
+			while (b != a) {
+				path.append(how[b]);
+				b = from[b];
+			}
+			sb.append(path.reverse()).append("\n");
 			q.clear();
 		}
 		System.out.println(sb);
