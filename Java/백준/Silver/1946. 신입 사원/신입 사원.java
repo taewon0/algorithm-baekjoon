@@ -22,27 +22,15 @@ public class Main {
 				arr[i][2] = i;
 			}
 			Arrays.sort(arr, (a, b)-> {return a[0] - b[0];});
-			HashSet<Integer> set1 = new HashSet<>();
-			set1.add(arr[0][2]);
 			int prev = arr[0][1];
+			int count = 1;
 			for (int i = 1; i < n; i++) {
 				if (prev > arr[i][1]) {
 					prev = arr[i][1];
-					set1.add(arr[i][2]);
+					count++;
 				}
 			}
-			Arrays.sort(arr, (a, b)-> {return a[1] - b[1];});
-			HashSet<Integer> set2 = new HashSet<>();
-			set2.add(arr[0][2]);
-			prev = arr[0][0];
-			for (int i = 1; i < n; i++) {
-				if (prev > arr[i][0]) {
-					prev = arr[i][0];
-					set2.add(arr[i][2]);
-				}
-			}
-			set1.addAll(set2);
-			sb.append(set1.size()).append("\n");
+			sb.append(count).append("\n");
 		}
 		System.out.println(sb);
 	}
