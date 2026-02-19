@@ -15,29 +15,16 @@ public class Main {
 		while (n-->0) {
 			st = new StringTokenizer(br.readLine());
 			String comm = st.nextToken();
-			if (comm.equals("push_front")) {
-				d.addFirst(Integer.parseInt(st.nextToken()));
-			}
-			else if (comm.equals("push_back")) {
-				d.addLast(Integer.parseInt(st.nextToken()));
-			}
-			else if (comm.equals("pop_front")) {
-				sb.append(d.isEmpty() ? -1 : d.removeFirst()).append("\n");
-			}
-			else if (comm.equals("pop_back")) {
-				sb.append(d.isEmpty() ? -1 : d.removeLast()).append("\n");
-			}
-			else if (comm.equals("size")) {
-				sb.append(d.size()).append("\n");
-			}
-			else if (comm.equals("empty")) {
-				sb.append(d.isEmpty() ? 1 : 0).append("\n");
-			}
-			else if (comm.equals("front")) {
-				sb.append(d.isEmpty() ? -1 : d.getFirst()).append("\n");
-			}
-			else if (comm.equals("back")) {
-				sb.append(d.isEmpty() ? -1 : d.getLast()).append("\n");
+			switch(comm) {
+			case "push_front" : {d.addFirst(Integer.parseInt(st.nextToken()));break;}
+			case "push_back" : {d.addLast(Integer.parseInt(st.nextToken()));break;}
+			case "pop_front" : {sb.append(d.isEmpty() ? -1 : d.removeFirst()).append("\n");break;}
+			case "pop_back" : {sb.append(d.isEmpty() ? -1 : d.removeLast()).append("\n");break;}
+			case "size" : {sb.append(d.size()).append("\n");break;}
+			case "empty" : {sb.append(d.isEmpty() ? 1 : 0).append("\n");break;}
+			case "front" : {sb.append(d.isEmpty() ? -1 : d.getFirst()).append("\n");break;}
+			case "back" : {sb.append(d.isEmpty() ? -1 : d.getLast()).append("\n");break;}
+			default : break;
 			}
 		}
 		System.out.println(sb);
