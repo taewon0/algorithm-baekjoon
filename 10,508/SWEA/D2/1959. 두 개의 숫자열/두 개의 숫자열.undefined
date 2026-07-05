@@ -1,0 +1,55 @@
+
+import java.util.*;
+import java.io.*;
+
+class Solution
+{
+	public static void main(String args[]) throws Exception
+	{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        int T = Integer.parseInt(br.readLine());
+        StringTokenizer st;
+
+		for(int test_case = 1; test_case <= T; test_case++)
+		{
+		
+			st = new StringTokenizer(br.readLine());
+            int N = Integer.parseInt(st.nextToken());
+            int M = Integer.parseInt(st.nextToken());
+            int[] nArr = new int[N];
+            int[] mArr = new int[M];
+            
+            st = new StringTokenizer(br.readLine());
+            for (int i = 0; i < N; i++) {
+            	nArr[i] = Integer.parseInt(st.nextToken());
+            }
+            st = new StringTokenizer(br.readLine());
+            for (int i = 0; i < M; i++) {
+            	mArr[i] = Integer.parseInt(st.nextToken());
+            }
+            int[] longArr, shortArr;
+            if (N >= M) {
+            	longArr = nArr;
+                shortArr = mArr;
+            } else {
+            	longArr = mArr;
+                shortArr = nArr;
+            }
+            
+            int answer = 0, cur;
+            for (int i = 0; i <= longArr.length - shortArr.length; i++) {
+                cur = 0;
+            	for (int j = 0; j < shortArr.length; j++) {
+                	cur += longArr[i + j] * shortArr[j];
+                }
+                answer = Math.max(answer, cur);
+            }
+            
+            sb.append("#").append(test_case).append(" ").append(answer).append("\n");
+
+		}
+        System.out.print(sb);
+	}
+}
